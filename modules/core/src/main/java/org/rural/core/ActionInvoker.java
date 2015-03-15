@@ -49,14 +49,14 @@ public class ActionInvoker {
         }
     }
 
-    private Model<String, Object> findModel(Object[] parameters){
+    private Model findModel(Object[] parameters){
         String modelName = Model.class.getName();
         for(Object obj : parameters){
             if(obj.getClass().getName().equals(modelName)){
-                return (Model<String, Object>)obj;
+                return (Model)obj;
             }
         }
-        return new Model<String, Object>();
+        return new Model();
     }
 
 }

@@ -1,5 +1,7 @@
 package org.rural.context;
 
+import org.rural.config.ContextConfigHolder;
+import org.rural.config.InterceptorConfigHolder;
 import org.rural.core.BeanFilter;
 import org.springframework.context.ApplicationContext;
 
@@ -27,8 +29,12 @@ public class SpringContainer {
         return beans;
     }
 
-    static RurlConfig getRurlConfig(){
-        return SPRING_CONTEXT.getBean(RurlConfig.class);
+    static ContextConfigHolder getContextConfigHolder() {
+        return SPRING_CONTEXT.getBean(ContextConfigHolder.class);
+    }
+
+    static InterceptorConfigHolder getInterceptorConfigHolder() {
+        return SPRING_CONTEXT.getBean(InterceptorConfigHolder.class);
     }
 
 }

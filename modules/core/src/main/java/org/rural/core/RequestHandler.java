@@ -66,7 +66,7 @@ public class RequestHandler {
 
     private Object generateParameter(Class<?> type, String name, HttpServletRequest request, HttpServletResponse response){
         if(type.equals(Model.class)){
-            return new Model<String, Object>();
+            return new Model();
         }
         if(type.equals(ServletContext.class)){
             return ActionContext.context().getServletContext();

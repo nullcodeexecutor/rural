@@ -14,7 +14,7 @@ import java.io.IOException;
 public abstract class AbstractView implements View{
 
     @Override
-    public final void render(String render, HttpServletRequest request, HttpServletResponse response, Model<String, Object> model) throws IOException, ServletException {
+    public final void render(String render, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ServletException {
         if("json".equals(render)){
             this.forward("", request, response, model);
             return;
@@ -38,6 +38,6 @@ public abstract class AbstractView implements View{
         throw new RuralException(render+" is error");
     }
 
-    public abstract void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model<String, Object> model) throws ServletException, IOException;
+    public abstract void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException;
 
 }

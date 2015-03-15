@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class Render {
 
-    public static void render(Object invokeResult, HttpServletRequest request, HttpServletResponse response, Model<String, Object> model) throws IOException, ServletException {
+    public static void render(Object invokeResult, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ServletException {
         if (null != invokeResult){
             String result = invokeResult.toString();
             View view = RenderFactory.view(result);

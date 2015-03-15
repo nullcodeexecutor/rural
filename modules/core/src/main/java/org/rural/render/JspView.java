@@ -22,7 +22,7 @@ public class JspView extends AbstractView {
         return view;
     }
     @Override
-    public void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model<String, Object> model) throws ServletException, IOException {
+    public void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
         for(String key : model.keySet()){
             request.setAttribute(key, model.get(key));
         }

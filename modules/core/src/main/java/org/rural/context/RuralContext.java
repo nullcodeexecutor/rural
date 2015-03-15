@@ -19,7 +19,7 @@ import java.util.*;
 public class RuralContext {
     private static final Log log = LogFactory.getLog(RuralContext.class);
     private static RuralContext me = null;
-    private RurlConfig rurlConfig = null;
+    private RuralConfigBean rurlConfig = null;
     private Map<String, Action> mappingCache = null;
     private String controllerSuffix = "Controller";
 
@@ -77,7 +77,7 @@ public class RuralContext {
         for (Object obj : interceptors) {
             if (obj instanceof Interceptor) {
                 Interceptor interceptor = (Interceptor)obj;
-                log.info(interceptor.getClass().getName() + ": " + interceptor.pattern());
+                log.info(interceptor.getClass().getName() + ": " + interceptor.getPattern());
                 interceptorList.add(interceptor);
             }
         }
@@ -85,7 +85,7 @@ public class RuralContext {
         Collections.sort(interceptorList, new Comparator<Interceptor>() {
             @Override
             public int compare(Interceptor interceptor1, Interceptor interceptor2) {
-                return interceptor1.order() - interceptor2.order();
+                return interceptor1.getOrder() - interceptor2.getOrder();
             }
         });
         return interceptorList;
@@ -94,7 +94,7 @@ public class RuralContext {
     private List<Interceptor> getInterceptors(String resource, List<Interceptor> interceptors, AntPathMatcher matcher){
         List<Interceptor> list = new ArrayList<Interceptor>();
         for (Interceptor interceptor : interceptors) {
-            if (matcher.match(interceptor.pattern(), resource)) {
+            if (matcher.match(interceptor.getPattern(), resource)) {
                 list.add(interceptor);
             }
         }
@@ -105,7 +105,7 @@ public class RuralContext {
         return mappingCache.get(resource);
     }
 
-    public RurlConfig getRurlConfig(){
+    public RuralConfigBean getRurlConfig(){
         if(null == rurlConfig){
             rurlConfig = SpringContainer.getRurlConfig();
         }

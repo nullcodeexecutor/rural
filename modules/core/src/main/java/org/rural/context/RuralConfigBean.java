@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by yuantao on 2014/8/11.
  */
-public class RurlConfig implements ApplicationContextAware {
+public class RuralConfigBean {
     private String charset;
     private String template;
     private String pageLocation;
@@ -76,11 +76,6 @@ public class RurlConfig implements ApplicationContextAware {
 
     public void setInterceptorLocation(String interceptorLocation) {
         this.interceptorLocation = interceptorLocation;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContainer.SPRING_CONTEXT = applicationContext;
     }
 
 }

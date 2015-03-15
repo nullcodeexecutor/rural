@@ -13,7 +13,7 @@
     <context:annotation-config />
     <context:component-scan base-package="org.coder"/>
 
-    <bean class="org.rural.context.RurlConfig">
+    <bean class="org.rural.context.RuralConfigBean">
         <property name="charset" value="UTF-8"/>
         <property name="controllerLocation" value="org.coder.controller"/>
         <property name="interceptorLocation" value="org.coder.interceptor"/>

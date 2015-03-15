@@ -41,7 +41,7 @@ public class ActionContext {
         return this.request.getContextPath();
     }
 
-    static void setContext(HttpServletRequest request, HttpServletResponse response){
+    public static void setContext(HttpServletRequest request, HttpServletResponse response){
         ActionContext ruralContext = new ActionContext(request, response);
         context.set(ruralContext);
     }

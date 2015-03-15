@@ -5,5 +5,5 @@ import java.util.HashMap;
 /**
  * Created by yuantao on 2014/8/9.
  */
-public class Model<String, Object> extends HashMap {
+public class Model extends HashMap<String, Object> {
 }

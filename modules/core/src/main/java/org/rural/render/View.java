@@ -12,6 +12,6 @@ import java.io.IOException;
  */
 public interface View {
 
-    void render(String view, HttpServletRequest request, HttpServletResponse response, Model<String, Object> model) throws IOException, ServletException;
+    void render(String view, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ServletException;
 
 }
