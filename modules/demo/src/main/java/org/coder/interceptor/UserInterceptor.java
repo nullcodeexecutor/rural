@@ -11,15 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class UserInterceptor extends Interceptor{
-    @Override
-    public int order() {
-        return 0;
-    }
-
-    @Override
-    public String pattern() {
-        return "/user/*";
-    }
 
     @Override
     public boolean before(HttpServletRequest request, HttpServletResponse response) {

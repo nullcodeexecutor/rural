@@ -34,7 +34,7 @@ public class ActionInvoker {
         try {
             result = action.getMethod().invoke(action.getInstance(), this.args);
         } catch (IllegalAccessException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         } catch (InvocationTargetException e) {
             LOGGER.error(request.getRequestURI(), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

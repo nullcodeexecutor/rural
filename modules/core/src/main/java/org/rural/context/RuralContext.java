@@ -2,6 +2,9 @@ package org.rural.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.rural.config.ContextConfigHolder;
+import org.rural.config.InterceptorConfigHolder;
+import org.rural.config.RuralConfig;
 import org.rural.core.*;
 import org.rural.exception.RuralException;
 import org.rural.interceptor.Interceptor;
@@ -19,7 +22,8 @@ import java.util.*;
 public class RuralContext {
     private static final Log log = LogFactory.getLog(RuralContext.class);
     private static RuralContext me = null;
-    private RuralConfigBean rurlConfig = null;
+    private RuralConfigBean ruralConfigBean = null;
+    private InterceptorConfigBean interceptorConfigBean = null;
     private Map<String, Action> mappingCache = null;
     private String controllerSuffix = "Controller";
 
@@ -43,11 +47,38 @@ public class RuralContext {
 
     private RuralContext(ServletContext servletContext){
         List<Object> controllers = SpringContainer.getRuralBean(new ControllerBeanFilter());
-        List<Object> interceptors = SpringContainer.getRuralBean(new InterceptorBeanFilter());
-        initCache(controllers, interceptorOrder(interceptors));
+
+        RuralConfig ruralConfig = SpringContainer.getRuralConfig();
+        initConfig(ruralConfig) ;
+
+        initCache(controllers);
     }
 
-    private void initCache(List<Object> controllers, List<Interceptor> interceptors){
+    private void initConfig(RuralConfig ruralConfig) {
+        ContextConfigHolder contextConfigHolder = new ContextConfigHolder();
+        InterceptorConfigHolder interceptorConfigHolder = new InterceptorConfigHolder();
+        ruralConfig.setContextConfig(contextConfigHolder);
+        ruralConfig.setInterceptorConfig(interceptorConfigHolder);
+
+        buildRuralConfigBean(contextConfigHolder);
+        buildInterceptorConfig(interceptorConfigHolder);
+    }
+
+    private void buildInterceptorConfig(InterceptorConfigHolder interceptorConfigHolder) {
+        this.interceptorConfigBean = new InterceptorConfigBean(interceptorConfigHolder.getInterceptorConfigs());
+    }
+
+    private void buildRuralConfigBean(ContextConfigHolder contextConfigHolder) {
+        this.ruralConfigBean = new RuralConfigBean();
+        this.ruralConfigBean.setCharset(contextConfigHolder.get(RuralConfig.CHARSET).toString());
+        this.ruralConfigBean.setTemplate(contextConfigHolder.get(RuralConfig.TEMPLATE).toString());
+        this.ruralConfigBean.setPageLocation(contextConfigHolder.get(RuralConfig.PAGE_LOCATION).toString());
+        this.ruralConfigBean.setControllerLocation(contextConfigHolder.get(RuralConfig.CONTROLLER_LOCATION).toString());
+        this.ruralConfigBean.setInterceptorLocation(contextConfigHolder.get(RuralConfig.INTERCEPTOR_LOCATION).toString());
+        this.ruralConfigBean.setResourcesLocation(contextConfigHolder.get(RuralConfig.RESOURCES_LOCATION).toString());
+    }
+
+    private void initCache(List<Object> controllers){
         if(null == mappingCache){
             mappingCache = new HashMap<String, Action>();
         }
@@ -65,51 +96,23 @@ public class RuralContext {
                 String resource = "/"+mapping+"/"+method.getName();
                 String[] argNames = ReflectUtil.getMethodArgNames(clazz.getName(), method.getName());
                 Action action = new Action(bean, method, method.getParameterTypes(), argNames, resource);
-                action.setInterceptors(getInterceptors(resource, interceptors, matcher));
+                action.setInterceptors(this.interceptorConfigBean.getInterceptors(resource, matcher));
                 mappingCache.put(resource, action);
                 log.info(resource);
             }
         }
     }
 
-    private List<Interceptor> interceptorOrder(List<Object> interceptors){
-        List<Interceptor> interceptorList = new ArrayList<Interceptor>();
-        for (Object obj : interceptors) {
-            if (obj instanceof Interceptor) {
-                Interceptor interceptor = (Interceptor)obj;
-                log.info(interceptor.getClass().getName() + ": " + interceptor.getPattern());
-                interceptorList.add(interceptor);
-            }
-        }
-        //按照order升序排序
-        Collections.sort(interceptorList, new Comparator<Interceptor>() {
-            @Override
-            public int compare(Interceptor interceptor1, Interceptor interceptor2) {
-                return interceptor1.getOrder() - interceptor2.getOrder();
-            }
-        });
-        return interceptorList;
-    }
-
-    private List<Interceptor> getInterceptors(String resource, List<Interceptor> interceptors, AntPathMatcher matcher){
-        List<Interceptor> list = new ArrayList<Interceptor>();
-        for (Interceptor interceptor : interceptors) {
-            if (matcher.match(interceptor.getPattern(), resource)) {
-                list.add(interceptor);
-            }
-        }
-        return list;
-    }
-
     public Action getAction(String resource){
         return mappingCache.get(resource);
     }
 
-    public RuralConfigBean getRurlConfig(){
-        if(null == rurlConfig){
-            rurlConfig = SpringContainer.getRurlConfig();
-        }
-        return rurlConfig;
+    public RuralConfigBean getRuralConfigBean(){
+        return ruralConfigBean;
+    }
+
+    public InterceptorConfigBean getInterceptorConfigBean(){
+        return interceptorConfigBean;
     }
 
 }

@@ -2,7 +2,9 @@ package org.rural.context;
 
 import org.rural.config.ContextConfigHolder;
 import org.rural.config.InterceptorConfigHolder;
+import org.rural.config.RuralConfig;
 import org.rural.core.BeanFilter;
+import org.rural.exception.RuralException;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
@@ -29,12 +31,16 @@ public class SpringContainer {
         return beans;
     }
 
-    static ContextConfigHolder getContextConfigHolder() {
-        return SPRING_CONTEXT.getBean(ContextConfigHolder.class);
+    static RuralConfig getRuralConfig() {
+        RuralConfig config =  SPRING_CONTEXT.getBean(RuralConfig.class);
+        if (null == config) {
+            throw new RuralException("Not found RuralConfig");
+        }
+        return config;
     }
 
-    static InterceptorConfigHolder getInterceptorConfigHolder() {
-        return SPRING_CONTEXT.getBean(InterceptorConfigHolder.class);
+    static <T> T getBean(Class<T> clazz) {
+        return SPRING_CONTEXT.getBean(clazz);
     }
 
 }

@@ -14,10 +14,10 @@ public class RenderFactory {
         if("json".equals(temp)){
             return JsonView.me();
         }
-        if("jsp".equals(RuralContext.context().getRurlConfig().getTemplate())){
+        if("jsp".equals(RuralContext.context().getRuralConfigBean().getTemplate())){
             return JspView.me();
         }
-        if("fm".equals(RuralContext.context().getRurlConfig().getTemplate())){
+        if("fm".equals(RuralContext.context().getRuralConfigBean().getTemplate())){
             return FreeMarkerView.me();
         }
         throw  new RuralException("No Templates Found");

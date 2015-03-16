@@ -10,16 +10,6 @@ import java.io.IOException;
  */
 public abstract class Interceptor {
 
-    /**
-     * 拦截器优先级
-     */
-    protected Integer order;
-
-    /**
-     * 需要拦截的URL
-     */
-    protected String pattern;
-
     protected boolean invoke(InterceptorChain chain, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if(!before(request, response)){
             return false;
@@ -37,14 +27,4 @@ public abstract class Interceptor {
 
     public abstract boolean after(HttpServletRequest request, HttpServletResponse response);
 
-    public int getOrder() {
-        if (null == order) {
-            return 0;
-        }
-        return order;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
 }

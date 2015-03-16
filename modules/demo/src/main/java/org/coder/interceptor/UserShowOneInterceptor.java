@@ -11,20 +11,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class UserShowOneInterceptor extends Interceptor{
-    @Override
-    public int order() {
-        return 2;
-    }
-
-    @Override
-    public String pattern() {
-        return "/user/showOne";
-    }
 
     @Override
     public boolean before(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("showOne before");
-        return false;
+        return true;
     }
 
     @Override

@@ -11,15 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class UserFindInterceptor extends Interceptor {
-    @Override
-    public int order() {
-        return 1;
-    }
-
-    @Override
-    public String pattern() {
-        return "/user/find*";
-    }
 
     @Override
     public boolean before(HttpServletRequest request, HttpServletResponse response) {
@@ -30,6 +21,6 @@ public class UserFindInterceptor extends Interceptor {
     @Override
     public boolean after(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("find after");
-        return false;
+        return true;
     }
 }

@@ -44,7 +44,7 @@ public class FreeMarkerView extends AbstractView {
         ServletContext servletContext = ActionContext.context().getServletContext();
         cfg = new Configuration();
         try {
-            File loadPath = new File(servletContext.getRealPath("") + RuralContext.context().getRurlConfig().getPageLocation());
+            File loadPath = new File(servletContext.getRealPath("") + RuralContext.context().getRuralConfigBean().getPageLocation());
             log.info("freemarker load path: " + loadPath.getAbsolutePath());
             cfg.setDirectoryForTemplateLoading(loadPath);
         } catch (IOException e) {
