@@ -15,26 +15,26 @@ import java.util.List;
 public class UserController {
 
     public String index(){
-        return "forward:/index.jsp";
+        return "forward:index.jsp";
     }
 
     public String showOne(Model model, HttpServletRequest request){
         System.out.println("user showOne ...");
         model.put("user", new User("zhangsan", 18));
-        return "forward:/test.ftl";
+        return "forward:test.ftl";
     }
 
     public String user(Model model, HttpServletRequest request){
         System.out.println("user user ...");
         model.put("user", new User("lisi", 18));
-        return "forward:/user/one.ftl";
+        return "forward:user/one.ftl";
     }
 
     public String findOne(String name, int age, Model model, HttpServletRequest request){
         System.out.println("user findOne ...");
         model.put("name", name);
         model.put("age", age);
-        return "forward:/user.jsp";
+        return "forward:user.jsp";
     }
 
     public String findAll(Model model) {

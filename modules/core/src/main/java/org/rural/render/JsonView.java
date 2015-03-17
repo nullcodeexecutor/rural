@@ -27,6 +27,7 @@ public class JsonView extends AbstractView {
 
     @Override
     public void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+        response.setHeader("content-type", "application/json");
         PrintWriter out = response.getWriter();
         out.print(JsonUtil.objectToString(model));
         out.flush();
