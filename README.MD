@@ -3,7 +3,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;Rural是一个基于spring的mvc框架，设计上类似spring mvc，相比于spring mvc，Rural使用更简便，无需配置和注解就可以实现URL到java方法的映射。	取名Rural(乡村风味的，田园的)寓意简洁。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;目前Rural支持json，jsp，freemarker三种视图。
 #####1.2 Hello World
-&nbsp;&nbsp;&nbsp;&nbsp;首先在web.xml中配置，类似spring mvc，需要配置listener来启动spring context，配置servlet负责请求分发。
+&nbsp;&nbsp;&nbsp;&nbsp;首先在web.xml中配置，类似spring mvc，需要配置listener来启动spring context，配置servlet负责请求分发
 ```xml
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -24,7 +24,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;定义Controller。
+&nbsp;&nbsp;&nbsp;&nbsp;然后编写controller
 ```java
 @Controller
 public class UserController {
