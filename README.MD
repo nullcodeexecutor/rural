@@ -37,3 +37,7 @@ public class UserController {
 }
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/user/sayHello``时，method``sayHello``将执行，容器返回json。
+####2 URL Mapping
+####3 Metadate Inject
+####4 View
+####5 Interceptor
