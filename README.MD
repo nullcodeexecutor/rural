@@ -27,7 +27,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;然后编写controller
 ```java
 @Controller
-public class UserController {
+public class HelloController {
 
     public String sayHello(Model model) {
         model.put("msg", "Hello World!");
@@ -36,7 +36,7 @@ public class UserController {
 
 }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/user/sayHello``时，method``sayHello``将执行，容器返回json。
+&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/hello/sayHello``时，method``sayHello``将执行，容器返回json。
 ####2 URL Mapping
 ####3 Metadate Inject
 ####4 View
