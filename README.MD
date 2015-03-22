@@ -36,7 +36,10 @@ public class HelloController {
 
 }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/hello/sayHello``时，method``sayHello``将执行，容器返回json。
+&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/hello/sayHello``时，method``sayHello``将执行，容器返回如下json字符串
+```js
+{"msg":"Hello World!"}
+```
 ####2 URL Mapping
 ####3 Metadate Inject
 ####4 View
