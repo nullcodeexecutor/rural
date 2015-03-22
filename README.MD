@@ -64,7 +64,24 @@ public class RuralConfig extends DefaultRuralConfig {
     }
 }
 ```
+&nbsp;&nbsp;&nbsp;&nbsp;DefaultRuralConfig 类中定义了所有Rural支持的配置
+```java
+    @Override
+    public void setContextConfig(ContextConfigHolder contextConfigHolder) {
+	    //请求响应编码类型
+        contextConfigHolder.add(CHARSET, "UTF-8");
+        //模板类型，目前只支持jsp和fm（freemarker）
+        contextConfigHolder.add(TEMPLATE, "fm");
+        //页面文件所在位置
+        contextConfigHolder.add(PAGE_LOCATION, "/WEB-INF/page/");
+        //资源文件所在位置
+        contextConfigHolder.add(RESOURCES_LOCATION, "/resources");
+        //Controller所在包
+        contextConfigHolder.add(CONTROLLER_LOCATION, "");
+    }
+```
 ####3 URL Mapping
 ####4 Metadata Inject
 ####5 View
 ####6 Interceptor
+
