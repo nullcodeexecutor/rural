@@ -74,7 +74,6 @@ public class RuralContext {
         this.ruralConfigBean.setTemplate(contextConfigHolder.get(RuralConfig.TEMPLATE).toString());
         this.ruralConfigBean.setPageLocation(contextConfigHolder.get(RuralConfig.PAGE_LOCATION).toString());
         this.ruralConfigBean.setControllerLocation(contextConfigHolder.get(RuralConfig.CONTROLLER_LOCATION).toString());
-        this.ruralConfigBean.setInterceptorLocation(contextConfigHolder.get(RuralConfig.INTERCEPTOR_LOCATION).toString());
         this.ruralConfigBean.setResourcesLocation(contextConfigHolder.get(RuralConfig.RESOURCES_LOCATION).toString());
     }
 

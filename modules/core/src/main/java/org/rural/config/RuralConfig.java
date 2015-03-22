@@ -8,7 +8,6 @@ public interface RuralConfig {
     String TEMPLATE = "template";
     String PAGE_LOCATION = "pageLocation";
     String CONTROLLER_LOCATION = "controllerLocation";
-    String INTERCEPTOR_LOCATION = "interceptorLocation";
     String RESOURCES_LOCATION = "resourcesLocation";
 
     void setContextConfig(ContextConfigHolder contextConfigHolder);

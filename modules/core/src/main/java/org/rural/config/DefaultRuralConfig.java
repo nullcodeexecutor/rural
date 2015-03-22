@@ -19,7 +19,6 @@ public class DefaultRuralConfig implements ApplicationContextAware, RuralConfig 
         contextConfigHolder.add(TEMPLATE, "fm");
         contextConfigHolder.add(PAGE_LOCATION, "/WEB-INF/page/");
         contextConfigHolder.add(CONTROLLER_LOCATION, "");
-        contextConfigHolder.add(INTERCEPTOR_LOCATION, "");
         contextConfigHolder.add(RESOURCES_LOCATION, "/resources");
     }
 

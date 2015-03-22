@@ -15,7 +15,6 @@ public class RuralConfigBean {
     private String template;
     private String pageLocation;
     private String controllerLocation;
-    private String interceptorLocation;
     private String resourcesLocation;
 
     public String getResourcesLocation() {
@@ -65,17 +64,6 @@ public class RuralConfigBean {
 
     public void setControllerLocation(String controllerLocation) {
         this.controllerLocation = controllerLocation;
-    }
-
-    public String getInterceptorLocation() {
-        if (null == interceptorLocation) {
-            interceptorLocation = "/WEB-INF/page/";
-        }
-        return interceptorLocation;
-    }
-
-    public void setInterceptorLocation(String interceptorLocation) {
-        this.interceptorLocation = interceptorLocation;
     }
 
 }
