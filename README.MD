@@ -24,6 +24,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 ```
+&nbsp;&nbsp;&nbsp;&nbsp;增加spring bean配置如下
+```xml
+    <bean id="defaultRuralConfig" class="org.rural.config.DefaultRuralConfig"/>
+```
 &nbsp;&nbsp;&nbsp;&nbsp;然后编写controller
 ```java
 @Controller
@@ -36,8 +40,48 @@ public class HelloController {
 
 }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/hello/sayHello``时，method``sayHello``将执行，容器返回json。
-####2 URL Mapping
-####3 Metadate Inject
-####4 View
-####5 Interceptor
+&nbsp;&nbsp;&nbsp;&nbsp;访问url ``/contextPath/hello/sayHello``时，method``sayHello``将执行，容器返回如下json字符串
+```js
+{"msg":"Hello World!"}
+```
+####2 Config
+&nbsp;&nbsp;&nbsp;&nbsp;Rural配置极少，一般只需要配置默认的DefaultRuralConfig即可。若需要更改配置或需要定义拦截器则可自定义配置类，继承自DefaultRuralConfig即可。
+```java
+@Component
+public class RuralConfig extends DefaultRuralConfig {
+    @Override
+    public void setInterceptorConfig(InterceptorConfigHolder interceptorConfigHolder) {
+        super.setInterceptorConfig(interceptorConfigHolder);
+        //增加拦截器
+        interceptorConfigHolder.add("/user/*", UserInterceptor.class);
+    }
+
+    @Override
+    public void setContextConfig(ContextConfigHolder contextConfigHolder) {
+        super.setContextConfig(contextConfigHolder);
+        //重写定义某些配置，这里重定义了模板类型为freemarker
+        contextConfigHolder.add(TEMPLATE, "fm");
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;DefaultRuralConfig 类中定义了所有Rural支持的配置
+```java
+    @Override
+    public void setContextConfig(ContextConfigHolder contextConfigHolder) {
+	    //请求响应编码类型
+        contextConfigHolder.add(CHARSET, "UTF-8");
+        //模板类型，目前只支持jsp和fm（freemarker）
+        contextConfigHolder.add(TEMPLATE, "fm");
+        //页面文件所在位置
+        contextConfigHolder.add(PAGE_LOCATION, "/WEB-INF/page/");
+        //资源文件所在位置
+        contextConfigHolder.add(RESOURCES_LOCATION, "/resources");
+        //Controller所在包
+        contextConfigHolder.add(CONTROLLER_LOCATION, "");
+    }
+```
+####3 URL Mapping
+####4 Metadata Inject
+####5 View
+####6 Interceptor
+
