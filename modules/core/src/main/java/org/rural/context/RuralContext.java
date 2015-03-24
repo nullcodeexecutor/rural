@@ -46,11 +46,13 @@ public class RuralContext {
     }
 
     private RuralContext(ServletContext servletContext){
-        List<Object> controllers = SpringContainer.getRuralBean(new ControllerBeanFilter());
+    }
 
+    public void initContext() {
         RuralConfig ruralConfig = SpringContainer.getRuralConfig();
         initConfig(ruralConfig) ;
 
+        List<Object> controllers = SpringContainer.getRuralBean(new ControllerBeanFilter());
         initCache(controllers);
     }
 
@@ -85,14 +87,14 @@ public class RuralContext {
         for(Object bean : controllers){
             Class<?> clazz = bean.getClass();
             List<Method> methods = ReflectUtil.getPublicMethods(clazz);
-            String mapping = StringUtil.firstCharToLowerCase(StringUtil.cutSuffix(clazz.getSimpleName(), this.controllerSuffix));
+            String mapping = getMapping(clazz);
             log.info(clazz.getName());
             for(Method method : methods){
                 String returnType = method.getReturnType().getName();
                 if(!(void.class.getName().equals(returnType) || String.class.getName().equals(returnType))){
                     continue;
                 }
-                String resource = "/"+mapping+"/"+method.getName();
+                String resource =  mapping + method.getName();
                 String[] argNames = ReflectUtil.getMethodArgNames(clazz.getName(), method.getName());
                 Action action = new Action(bean, method, method.getParameterTypes(), argNames, resource);
                 action.setInterceptors(this.interceptorConfigBean.getInterceptors(resource, matcher));
@@ -100,6 +102,26 @@ public class RuralContext {
                 log.info(resource);
             }
         }
+    }
+
+    private String getMapping(Class<?> clazz) {
+        String controllerPackageName = RuralContext.context().getRuralConfigBean().getControllerLocation();
+        if ("".equals(controllerPackageName)) {
+            return "/" + StringUtil.firstCharToLowerCase(StringUtil.cutSuffix(clazz.getSimpleName(), this.controllerSuffix)) + "/";
+        }
+        String[] mappings = StringUtil.cutPrefix(StringUtil.cutSuffix(clazz.getName(), this.controllerSuffix), controllerPackageName).split("\\.", -1);
+        StringBuilder sb = new StringBuilder("");
+        for (String s : mappings) {
+            if ("".equals(s)) {
+                continue;
+            }
+            sb.append(StringUtil.firstCharToLowerCase(s)).append("/");
+        }
+        String mapping = sb.toString();
+        if (!mapping.startsWith("/")) {
+            mapping = "/" + mapping;
+        }
+        return mapping;
     }
 
     public Action getAction(String resource){

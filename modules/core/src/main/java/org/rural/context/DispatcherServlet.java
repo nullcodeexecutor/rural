@@ -28,6 +28,7 @@ public class DispatcherServlet extends HttpServlet {
         log.info("init ...");
         ServletContext servletContext = config.getServletContext();
         ruralContext = RuralContext.initRuralContext(servletContext);
+        ruralContext.initContext();
         this.charset = ruralContext.getRuralConfigBean().getCharset();
         requestHandler = new RequestHandler();
     }

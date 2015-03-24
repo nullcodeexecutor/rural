@@ -7,6 +7,8 @@ import org.rural.utils.StringUtil;
  */
 public class StringUtilTest {
     public static void main(String[] args) {
-        System.out.println(Double.parseDouble("df"));
+        for (String s : ".d.d.".split("\\.", -1)) {
+            System.out.println("--" + s);
+        }
     }
 }

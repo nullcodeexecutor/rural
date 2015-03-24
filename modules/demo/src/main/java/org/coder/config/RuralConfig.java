@@ -28,5 +28,6 @@ public class RuralConfig extends DefaultRuralConfig {
     public void setContextConfig(ContextConfigHolder contextConfigHolder) {
         super.setContextConfig(contextConfigHolder);
         contextConfigHolder.add(TEMPLATE, "fm");
+        contextConfigHolder.add(CONTROLLER_LOCATION, "org.coder.controller");
     }
 }

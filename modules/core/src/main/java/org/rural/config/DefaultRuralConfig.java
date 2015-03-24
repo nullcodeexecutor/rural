@@ -18,8 +18,8 @@ public class DefaultRuralConfig implements ApplicationContextAware, RuralConfig 
         contextConfigHolder.add(CHARSET, "UTF-8");
         contextConfigHolder.add(TEMPLATE, "fm");
         contextConfigHolder.add(PAGE_LOCATION, "/WEB-INF/page/");
-        contextConfigHolder.add(CONTROLLER_LOCATION, "");
         contextConfigHolder.add(RESOURCES_LOCATION, "/resources");
+        contextConfigHolder.add(CONTROLLER_LOCATION, "");
     }
 
     @Override
