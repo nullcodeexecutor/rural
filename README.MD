@@ -64,7 +64,7 @@ public class RuralConfig extends DefaultRuralConfig {
     }
 }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;DefaultRuralConfig 类中定义了所有Rural支持的配置
+&nbsp;&nbsp;&nbsp;&nbsp;DefaultRuralConfig 类中定义了所有Rural支持的配置。
 ```java
     @Override
     public void setContextConfig(ContextConfigHolder contextConfigHolder) {
@@ -91,7 +91,7 @@ org.coder.controller.resc.ResouceController
 	public  String fineOne(Model model);
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;当没有配置``CONTROLLER_LOCATION``时，默认所有以Controller为后缀的类都是Controller，url路径为类名截去后缀``Controller``，再把首字母小写。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;以上所示的两个方法分别对应URL ``/hello/sayHello``和``/resource/findOne``
+&nbsp;&nbsp;&nbsp;&nbsp;以上所示的两个方法分别对应URL ``/hello/sayHello``和``/resource/findOne``。
 #####3.2 自定义Controller包位置
 &nbsp;&nbsp;&nbsp;&nbsp;当自定义Rural Config的CONTROLLER_LOCATION后，必须满足以该包名开头且以Controller为后缀的类才是Controller，且包名会与URL路径对应。
 &nbsp;&nbsp;&nbsp;&nbsp;如类结构仍为3.1所示，设置
@@ -102,7 +102,7 @@ org.coder.controller.resc.ResouceController
         contextConfigHolder.add(CONTROLLER_LOCATION, "org.coder.controller");
     }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;此时两个URL 为``/hello/sayHello``和``/resc/resource/findOne``
+&nbsp;&nbsp;&nbsp;&nbsp;此时两个URL 为``/hello/sayHello``和``/resc/resource/findOne``。
 ####4 Metadata Inject
 ####5 View
 ####6 Interceptor
