@@ -104,6 +104,21 @@ org.coder.controller.resc.ResouceController
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;此时两个URL 为``/hello/sayHello``和``/resc/resource/findOne``。
 ####4 Metadata Inject
+#####4.1 Is what metadata 
+&nbsp;&nbsp;&nbsp;&nbsp;Metadata是指能够被Rural自动注入在URL对应的方法参数的数据类型，这包括请求类型和其它一些servlet和rural相关类型。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;如访问url``xxx/findOne?name=myname&age=24``，如下的方法中的参数name,age,model都会被自动注入。
+```java
+public String findOne(String name, int age, Model model, HttpServletRequest request){
+    System.out.println("user findOne ...");
+    model.put("name", name);
+    model.put("age", age);
+    return "forward:user.jsp";
+}
+```
+#####4.2 所有能被注入的类型
+&nbsp;&nbsp;&nbsp;&nbsp;能够被Rural注入的请求参数类型包括8种基本数据类及其包装器类型和String类型。
+&nbsp;&nbsp;&nbsp;&nbsp;此外还有三个servlet相关类型，ServletContext，HttpServletRequest，HttpServletResponse，HttpSession。注入这四个类型是必须定义成这几个接口类型。
+&nbsp;&nbsp;&nbsp;&nbsp;还有比较特殊的类型Model，该类实际上是一个HashMap，用于持有用于页面渲染的数据类型。当模板类型是JSP时，model中的数据会自动转存到request中。
 ####5 View
 ####6 Interceptor
 
