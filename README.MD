@@ -120,5 +120,52 @@ public String findOne(String name, int age, Model model, HttpServletRequest requ
 &nbsp;&nbsp;&nbsp;&nbsp;此外还有三个servlet相关类型，ServletContext，HttpServletRequest，HttpServletResponse，HttpSession。注入这四个类型是必须定义成这几个接口类型。
 &nbsp;&nbsp;&nbsp;&nbsp;还有比较特殊的类型Model，该类实际上是一个HashMap，用于持有用于页面渲染的数据类型。当模板类型是JSP时，model中的数据会自动转存到request中。
 ####5 View
+&nbsp;&nbsp;&nbsp;&nbsp;Controller中的方法必须返回String，String的内容指明了该此请求使用何种视图。
++ json&nbsp;&nbsp;&nbsp;&nbsp;json视图
++ forward:xxx/xx&nbsp;&nbsp;&nbsp;&nbsp;通过forward形式跳转到页面，目前页面支持freemarker(fm)和jsp
++ redirect:xxx&nbsp;&nbsp;&nbsp;&nbsp;通过redirect跳转到另一个请求
+
+&nbsp;&nbsp;&nbsp;&nbsp;下列情景Rural会返回/WEB-INF/page/user/one.ftl页面渲染的结果。
+```java
+        contextConfigHolder.add(TEMPLATE, "fm");
+        contextConfigHolder.add(PAGE_LOCATION, "/WEB-INF/page/");
+```
+```java
+    public String user(Model model){
+        model.put("user", new User("lisi", 18));
+        return "forward:user/one";
+    }
+```
 ####6 Interceptor
+&nbsp;&nbsp;&nbsp;&nbsp;Rural支持自定义拦截器，继承抽象类``Interceptor``。无论``before``还是``after ``方法返回``false``都会使请求链终止。
+```java
+@Component
+public class UserInterceptor extends Interceptor{
+    @Override
+    public boolean before(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("user before");
+        return true;
+    }
+    @Override
+    public boolean after(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("user after");
+        return true;
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Rural拦截器的配置需要在代码中完成。拦截器中URL配置使用的是``org.springframework.util.AntPathMatcher``
+```java
+@Component
+public class MyConfig extends DefaultRuralConfig {
+    @Override
+    public void setInterceptorConfig(InterceptorConfigHolder interceptorConfigHolder) {
+        super.setInterceptorConfig(interceptorConfigHolder);
+        interceptorConfigHolder.add("/user/*", UserInterceptor.class);
+    }
+    @Override
+    public void setContextConfig(ContextConfigHolder contextConfigHolder) {
+        super.setContextConfig(contextConfigHolder);
+    }
+}
+```
 
