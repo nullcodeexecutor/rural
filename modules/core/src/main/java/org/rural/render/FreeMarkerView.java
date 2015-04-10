@@ -55,7 +55,7 @@ public class FreeMarkerView extends AbstractView {
 
     @Override
     public void forward(String viewName, HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-        Template template = cfg.getTemplate(viewName);
+        Template template = cfg.getTemplate(viewName + ".ftl");
         PrintWriter out = response.getWriter();
         try {
             template.process(model, out);

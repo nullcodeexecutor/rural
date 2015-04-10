@@ -26,6 +26,6 @@ public class JspView extends AbstractView {
         for(String key : model.keySet()){
             request.setAttribute(key, model.get(key));
         }
-        request.getRequestDispatcher(RuralContext.context().getRuralConfigBean().getPageLocation()+viewName).forward(request, response);
+        request.getRequestDispatcher(RuralContext.context().getRuralConfigBean().getPageLocation() + viewName + ".jsp").forward(request, response);
     }
 }

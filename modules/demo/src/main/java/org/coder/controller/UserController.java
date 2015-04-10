@@ -38,14 +38,14 @@ public class UserController {
     public String user(Model model, HttpServletRequest request){
         System.out.println("user user ...");
         model.put("user", new User("lisi", 18));
-        return "forward:user/one.ftl";
+        return "forward:user/one";
     }
 
     public String findOne(String name, int age, Model model, HttpServletRequest request){
         System.out.println("user findOne ...");
         model.put("name", name);
         model.put("age", age);
-        return "forward:user.jsp";
+        return "forward:user";
     }
 
     public static <T> T convert(Class<T> clazz, Object bean) {

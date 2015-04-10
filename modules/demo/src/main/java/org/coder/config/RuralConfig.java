@@ -27,7 +27,7 @@ public class RuralConfig extends DefaultRuralConfig {
     @Override
     public void setContextConfig(ContextConfigHolder contextConfigHolder) {
         super.setContextConfig(contextConfigHolder);
-        contextConfigHolder.add(TEMPLATE, "fm");
+        contextConfigHolder.add(TEMPLATE, "jsp");
         contextConfigHolder.add(CONTROLLER_LOCATION, "org.coder.controller");
     }
 }
