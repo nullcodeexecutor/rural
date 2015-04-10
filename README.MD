@@ -112,7 +112,7 @@ public String findOne(String name, int age, Model model, HttpServletRequest requ
     System.out.println("user findOne ...");
     model.put("name", name);
     model.put("age", age);
-    return "forward:user.jsp";
+    return "forward:user";
 }
 ```
 #####4.2 所有能被注入的类型
